@@ -1,0 +1,1 @@
+export default function Matches(){return <main className="mx-auto max-w-5xl px-6 py-12"><h1 className="text-4xl font-black">Your matches</h1><div className="mt-8 card p-6"><p className="text-slate-600">When two users like each other, they appear here and can start messaging.</p></div></main>}

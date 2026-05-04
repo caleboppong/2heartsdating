@@ -1,0 +1,1 @@
+export default function AdminReports(){return <main className="mx-auto max-w-7xl px-6 py-12"><h1 className="text-4xl font-black">User reports</h1><p className="mt-4 text-slate-600">Investigate reported members and take moderation action.</p></main>}

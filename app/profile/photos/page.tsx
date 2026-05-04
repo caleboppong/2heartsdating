@@ -1,0 +1,2 @@
+import PhotoUploader from '@/components/PhotoUploader';
+export default function Photos(){return <main className="mx-auto max-w-3xl px-6 py-12"><PhotoUploader userId="replace-with-auth-user-id"/><div className="mt-6 card p-6"><h2 className="text-xl font-bold">Gallery rules</h2><p className="mt-2 text-slate-600">Photos should be clear, respectful, and show the real person. Admins can reject inappropriate photos.</p></div></main>}

@@ -1,0 +1,1 @@
+export default function Subscription(){return <main className="mx-auto max-w-4xl px-6 py-12"><div className="card p-8"><h1 className="text-3xl font-black">Manage subscription</h1><p className="mt-3 text-slate-600">Connect Stripe checkout and webhooks here to activate Premium and Gold plans.</p><button className="btn btn-primary mt-6">Upgrade with Stripe</button></div></main>}
