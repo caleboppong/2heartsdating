@@ -1,13 +1,5 @@
-import Link from 'next/link';
-import LiveChat from '@/components/LiveChat';
-
-export default function ChatPage({ params }: { params: { matchId: string } }) {
-  return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <Link href="/messages" className="text-sm font-bold text-rose">← Back to messages</Link>
-      <div className="mt-6">
-        <LiveChat matchId={params.matchId} />
-      </div>
-    </main>
-  );
-}
+"use client";
+import { useEffect,useState } from 'react';import { useParams,useRouter } from 'next/navigation';import { supabase } from '@/lib/supabaseClient';
+type Message={id:string;match_id:string;sender_id:string;message:string;created_at:string};
+export default function ChatPage(){const router=useRouter();const params=useParams();const matchId=params.matchId as string;const[userId,setUserId]=useState('');const[messages,setMessages]=useState<Message[]>([]);const[text,setText]=useState('');async function loadMessages(){const{data}=await supabase.from('messages').select('*').eq('match_id',matchId).order('created_at',{ascending:true});setMessages((data||[]) as Message[])}useEffect(()=>{async function init(){const{data}=await supabase.auth.getUser();if(!data.user){router.push('/login');return}setUserId(data.user.id);loadMessages()}init();const channel=supabase.channel(`messages-${matchId}`).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`match_id=eq.${matchId}`},payload=>{setMessages(prev=>[...prev,payload.new as Message])}).subscribe();return()=>{supabase.removeChannel(channel)};// eslint-disable-next-line react-hooks/exhaustive-deps
+},[matchId,router]);async function sendMessage(e:React.FormEvent){e.preventDefault();if(!text.trim())return;const{error}=await supabase.from('messages').insert({match_id:matchId,sender_id:userId,message:text.trim()});if(!error)setText('');else alert(error.message)}return <main className="min-h-screen bg-pink-50 p-6"><div className="mx-auto flex h-[80vh] max-w-4xl flex-col rounded-2xl bg-white shadow"><div className="border-b p-5"><h1 className="text-2xl font-bold text-[#101B3D]">Live Chat</h1></div><div className="flex-1 space-y-3 overflow-y-auto p-5">{messages.map(m=>{const mine=m.sender_id===userId;return <div key={m.id} className={`flex ${mine?'justify-end':'justify-start'}`}><div className={`max-w-xs rounded-2xl px-4 py-3 ${mine?'bg-pink-600 text-white':'bg-slate-100 text-slate-900'}`}><p>{m.message}</p><p className="mt-1 text-xs opacity-70">{new Date(m.created_at).toLocaleTimeString()}</p></div></div>})}</div><form onSubmit={sendMessage} className="flex gap-3 border-t p-5"><input className="flex-1 rounded-xl border px-4 py-3" placeholder="Type your message..." value={text} onChange={e=>setText(e.target.value)}/><button className="rounded-xl bg-pink-600 px-6 font-bold text-white">Send</button></form></div></main>}

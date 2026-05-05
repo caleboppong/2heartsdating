@@ -1,17 +1,2 @@
-import MatchInbox from '@/components/MatchInbox';
-
-export default function Messages() {
-  return (
-    <main className="mx-auto max-w-6xl px-6 py-12">
-      <h1 className="text-4xl font-black text-navy">Messages</h1>
-      <p className="mt-3 text-slate-600">Chat privately with members after you match.</p>
-      <div className="mt-8 grid gap-6 md:grid-cols-[360px_1fr]">
-        <MatchInbox />
-        <div className="card p-8">
-          <h2 className="text-2xl font-black text-navy">Select a conversation</h2>
-          <p className="mt-3 text-slate-600">Open a match to begin live chat. Messages are protected by Supabase Row Level Security so only matched users can read or send them.</p>
-        </div>
-      </div>
-    </main>
-  );
-}
+import Link from 'next/link';
+export default function MessagesPage(){return <main className="min-h-screen bg-pink-50 p-6"><div className="mx-auto max-w-5xl rounded-2xl bg-white p-8 shadow"><h1 className="text-3xl font-bold text-[#101B3D]">Messages</h1><p className="mt-2 text-slate-600">Live chat is available after you match with another approved user.</p><Link href="/matches" className="mt-6 inline-block rounded bg-pink-600 px-6 py-3 font-bold text-white">View Matches</Link></div></main>}

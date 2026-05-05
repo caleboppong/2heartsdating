@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function AboutPage(){return <main className="hm-page"><section className="p-10 md:p-16"><h1 className="text-5xl font-bold text-[#101B3D]">About 2heartsdating</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">2heartsdating is a professional dating platform built for meaningful, safe, and genuine relationships. Profiles and photos are reviewed before being publicly listed.</p><Link href="/signup" className="hm-btn hm-btn-primary mt-8">Join Now</Link></section></main>}
