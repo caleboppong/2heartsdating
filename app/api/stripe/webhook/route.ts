@@ -32,7 +32,7 @@ export async function POST(request: Request) {
     );
 
     if (event.type === "checkout.session.completed") {
-      console.log("Checkout completed");
+      console.log("Payment successful");
     }
 
     return NextResponse.json({ received: true });
